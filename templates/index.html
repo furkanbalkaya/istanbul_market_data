@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Istanbul Markets Map</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Istanbul Markets Map</h1>
+    <div>
+        <h2>Filter Markets</h2>
+        <label for="days">Select Days:</label>
+        <select id="days" multiple>
+            {% for day in days %}
+                <option value="{{ day }}">{{ day }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="types">Select Market Types:</label>
+        <select id="types" multiple>
+            {% for type in types %}
+                <option value="{{ type }}">{{ type }}</option>
+            {% endfor %}
+        </select>
+
+        <button id="updateMap">Update Map</button>
+    </div>
+    <div id="map">
+        {{ create_map(unique_days, df['Pazar Tipi'].unique()) | safe }}
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#updateMap').click(function() {
+                let selectedDays = $('#days').val();
+                let selectedTypes = $('#types').val();
+
+                $.ajax({
+                    url: '/update_map',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ days: selectedDays, types: selectedTypes }),
+                    success: function(response) {
+                        $('#map').html(response.map_html);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
