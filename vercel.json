@@ -1,15 +1,13 @@
 {
     "builds": [
       {
-        "src": "app.py",
-        "use": "@vercel/python"
+        "src": "path/to/your/app.py",
+        "use": "@vercel/python",
+        "config": {
+          "distDir": "output"
+        }
       }
     ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "app.py"
-      }
-    ]
+    "buildCommand": "pip install setuptools==72.1.0 distutils && vercel build"
   }
   
