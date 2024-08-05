@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 # Load the dataset
-df = pd.read_excel('df = pd.read_excel('istanbul_market_data/pazar_verisi.xlsx')')
+df = pd.read_excel('istanbul_market_data/pazar_verisi.xlsx')
 
 # Split the coordinates into separate latitude and longitude columns
 df[['Latitude', 'Longitude']] = df['Koordinat'].str.split(',', expand=True)
@@ -48,7 +48,7 @@ fig.update_layout(
 )
 
 # Save the figure as an HTML file
-fig.write_html("istanbul_markets_map.html")
+fig.write_html("istanbul_market_data/public/istanbul_markets_map.html")
 
 # Display the figure
 fig.show()
