@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import plotly.express as px
 
 # Load the dataset
-df = pd.read_excel('pazar_verisi.xlsx')
+df = pd.read_excel('public/pazar_verisi.xlsx')
 
 # Split the coordinates into separate latitude and longitude columns
 df[['Latitude', 'Longitude']] = df['Koordinat'].str.split(',', expand=True)
